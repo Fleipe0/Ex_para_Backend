@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de idade</title>
+    <style>
+        * {
+        color: black; 
+        }
+        body {
+            font: 16px/26px 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+        
+
+        .wave-group {
+            position: relative;
+        }
+
+        .wave-group .input {
+            font-size: 16px;
+            padding: 10px 10px 10px 5px;
+            display: block;
+            width: 200px;
+            border: none;
+            border-bottom: 1px solid black;
+            background: transparent;
+        }
+
+        .wave-group .input:focus {
+            outline: none;
+        }
+
+        .wave-group .label {
+            color: black;
+            font-size: 18px;
+            font-weight: normal;
+            position: absolute;
+            pointer-events: none;
+            left: 5px;
+            top: 10px;
+            display: flex;
+        }
+
+        .wave-group .label-char {
+            transition: 0.2s ease all;
+            transition-delay: calc(var(--index) * .05s);
+        }
+
+        .wave-group .input:focus~label .label-char,
+        .wave-group .input:valid~label .label-char {
+            transform: translateY(-20px);
+            font-size: 14px;
+            color: #5264AE;
+        }
+
+        .wave-group .bar {
+            position: relative;
+            display: block;
+            width: 215px;
+        }
+
+        .wave-group .bar:before,
+        .wave-group .bar:after {
+            content: '';
+            height: 2px;
+            width: 0;
+            bottom: 1.1px;
+            position: absolute;
+            background: #5264AE;
+            transition: 0.2s ease all;
+            -moz-transition: 0.2s ease all;
+            -webkit-transition: 0.2s ease all;
+        }
+
+        .wave-group .bar:before {
+            left: 50%;
+        }
+
+        .wave-group .bar:after {
+            right: 50%;
+        }
+
+        .wave-group .input:focus~.bar:before,
+        .wave-group .input:focus~.bar:after {
+            width: 50%;
+        }
+
+        .btn {
+            color: black;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: 2px solid blue;
+            padding: 10px 20px;
+            font-size: 17px;
+            font-weight: bold;
+            background: transparent;
+            position: relative;
+            transition: all 1s;
+            overflow: hidden;
+        }
+
+        .btn:hover {
+            color: white;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            height: 100%;
+            width: 0%;
+            top: 0;
+            left: -40px;
+            transform: skewX(45deg);
+            background-color: blue;
+            z-index: -1;
+            transition: all 1s;
+        }
+
+        .btn:hover::before {
+            width: 160%;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Calculadora de idade</h1>
+    <div class="wave-group">
+        <input required="" type="text" class="input" name="anonascimento" id="anonascimento">
+        <span class="bar"></span>
+        <label class="label">
+            <span class="label-char" style="--index: 0">Ano</span>
+            <span class="label-char" style="--index: 1">&nbsp;de&nbsp;</span>
+            <span class="label-char" style="--index: 2">Nascimento</span>
+        </label>
+    </div><br>
+    <div class="wave-group">
+        <input required="" type="text" class="input" name="mesnascimento" id="mesnascimento">
+        <span class="bar"></span>
+        <label class="label">
+            <span class="label-char" style="--index: 0">Mês</span>
+            <span class="label-char" style="--index: 1">&nbsp;de&nbsp;</span>
+            <span class="label-char" style="--index: 2">Nascimento</span>
+        </label>
+    </div><br>
+    <div class="wave-group">
+        <input required="" type="text" class="input" name="anoatual" id="anoatual">
+        <span class="bar"></span>
+        <label class="label">
+            <span class="label-char" style="--index: 0">Ano&nbsp;</span>
+            <span class="label-char" style="--index: 1">Atual</span>
+        </label>
+    </div><br>
+    <button class="btn" onclick="calcidade()">Calcular Idade</button>
+    <br>Sua idade é:<br>
+    <span id="idade"></span> 
+    <h</H3>
+</body>
+<script>
+    function calcidade() {
+        var anonascimento = document.getElementById("anonascimento").value;
+        var anoatual = document.getElementById("anoatual").value;
+        var mesnascimento = document.getElementById("mesnascimento").value;
+        idade = anoatual - anonascimento
+        if (mesnascimento > 7){
+            idade = idade - 1
+        }
+        if (idade < 0) {
+            idade = idade * -1
+        }
+        if (idade > 130) {
+            idade = "Idade inválida, insira um valor válido"
+        }
+        if (anoatual > 2024 ) {
+            idade = "Ano Atual inválido, insira um valor válido"
+        }
+        document.getElementById("idade").innerHTML = idade;
+    }
+</script>
+
+</html>

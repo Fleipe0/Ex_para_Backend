@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora churrasco</title>
+    <style>
+        * {
+            color: black;
+        }
+
+        body {
+            font: 16px/26px 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+
+
+        .wave-group {
+            position: relative;
+        }
+
+        .wave-group .input {
+            font-size: 16px;
+            padding: 10px 10px 10px 5px;
+            display: block;
+            width: 250px;
+            border: none;
+            border-bottom: 1px solid black;
+            background: transparent;
+        }
+
+        .wave-group .input:focus {
+            outline: none;
+        }
+
+        .wave-group .label {
+            color: black;
+            font-size: 18px;
+            font-weight: normal;
+            position: absolute;
+            pointer-events: none;
+            left: 5px;
+            top: 10px;
+            display: flex;
+        }
+
+        .wave-group .label-char {
+            transition: 0.2s ease all;
+            transition-delay: calc(var(--index) * .05s);
+        }
+
+        .wave-group .input:focus~label .label-char,
+        .wave-group .input:valid~label .label-char {
+            transform: translateY(-20px);
+            font-size: 14px;
+            color: #5264AE;
+        }
+
+        .wave-group .bar {
+            position: relative;
+            display: block;
+            width: 265px;
+        }
+
+        .wave-group .bar:before,
+        .wave-group .bar:after {
+            content: '';
+            height: 2px;
+            width: 0;
+            bottom: 1.1px;
+            position: absolute;
+            background: #5264AE;
+            transition: 0.2s ease all;
+            -moz-transition: 0.2s ease all;
+            -webkit-transition: 0.2s ease all;
+        }
+
+        .wave-group .bar:before {
+            left: 50%;
+        }
+
+        .wave-group .bar:after {
+            right: 50%;
+        }
+
+        .wave-group .input:focus~.bar:before,
+        .wave-group .input:focus~.bar:after {
+            width: 50%;
+        }
+
+        .btn {
+            color: black;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: 2px solid blue;
+            padding: 10px 20px;
+            font-size: 17px;
+            font-weight: bold;
+            background: transparent;
+            position: relative;
+            transition: all 1s;
+            overflow: hidden;
+        }
+
+        .btn:hover {
+            color: white;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            height: 100%;
+            width: 0%;
+            top: 0;
+            left: -40px;
+            transform: skewX(45deg);
+            background-color: blue;
+            z-index: -1;
+            transition: all 1s;
+        }
+
+        .btn:hover::before {
+            width: 160%;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Calculadora de churrasco</h1>
+    <div class="wave-group">
+        <input required="" type="number" class="input" name="pessoas" id="pessoas">
+        <span class="bar"></span>
+        <label class="label">
+            <span class="label-char" style="--index: 0">Quantas</span>
+            <span class="label-char" style="--index: 1">&nbsp;pessoas&nbsp;contribuirão:&nbsp;</span>
+        </label>
+    </div><br>
+    <button class="btn" onclick="calc()">Calcular</button>
+    <br>
+    <h3><br>
+        <span id="resultado" style="color: red; "></span>
+    </h3>
+    <h3><br>
+        <span id="resultado2" style="color: red"></span>
+    </h3>
+
+</body>
+<script>
+    var carnemed = 300
+    var lingmed = 150
+    var pdalhomed = 1
+    function calc() {
+        var pess = document.getElementById("pessoas").value;
+        var resultadocarne = pess * (carnemed / 1000)
+        var resultadoling = pess * (lingmed / 1000)
+        var resultadopdalho = pess * (pdalhomed)
+        var resultado = "O total de carne para o churrasco é " + resultadocarne + "kg" + "<br> O total de linguiça para o churrasco é " + resultadoling + "kg" + "<br> E o total de pão de alho para o churrasco é " + resultadopdalho + " pacotes";
+        var resultado2 = "Cada um deve levar: " + (carnemed / 1000) + "kg de carne, " + (lingmed / 1000) + "kg de linguiça e " + (pdalhomed) + " pacotes de pão de alho"
+        document.getElementById("resultado").innerHTML = resultado;
+        document.getElementById("resultado2").innerHTML = resultado2;
+        var botãolimpar = document.createElement("button");
+        botãolimpar.className = "btn";
+        botãolimpar.id = "botãolimpar";
+        botãolimpar.style = "margin-top: 10px.; width:10%;";
+        botãolimpar.innerHTML = "Limpar";
+        document.body.appendChild(botãolimpar);
+        botãolimpar.onclick = function () {
+            document.getElementById("resultado").innerHTML = "";
+            document.getElementById("resultado2").innerHTML = "";
+            document.getElementById("botãolimpar").remove();
+            document.getElementById("botãomed").remove();
+            document.getElementById("botãoenv").remove();       
+            document.getElementById("carnemed").remove();
+            document.getElementById("lingmed").remove();
+            document.getElementById("pdalhomed").remove();            
+        }
+        var botãomed = document.createElement("button");
+        botãomed.className = "btn";
+        botãomed.id = "botãomed";
+        botãomed.style = "margin-left: 900px.; width:10%;";
+        botãomed.innerHTML = "Mudar medidas";
+        document.body.appendChild(botãomed);
+        botãomed.onclick = function () {
+            carnemed = document.createElement("input");
+            carnemed.type = "number";
+            carnemed.id = 'carnemed';
+            carnemed.style = "width: 410px; height: 30px; margin-left: 5px; margin-top: 10px;color:red;display:block";
+            carnemed.placeholder = "Insira a medida base de carne de cada contribuente (em gramas)"
+            document.body.appendChild(carnemed);
+            lingmed = document.createElement("input");
+            lingmed.type = "number";
+            lingmed.id = 'lingmed';
+            lingmed.style = "width: 430px; height: 30px; margin-left: 5px; margin-top: 10px;color:red;display:block";
+            lingmed.placeholder = "Insira a medida base de linguiça de cada contribuente (em gramas)"
+            document.body.appendChild(lingmed);
+            pdalhomed = document.createElement("input");
+            pdalhomed.type = "number";
+            pdalhomed.id = 'pdalhomed';
+            pdalhomed.style = "width: 480px; height: 30px; margin-left: 5px; margin-top: 10px;color:red;display:block";
+            pdalhomed.placeholder = "Insira a medida base de pão de alho de cada contribuente (em nº de pacotes)"
+            document.body.appendChild(pdalhomed);
+            var botãoenv = document.createElement("button");
+            botãoenv.className = "btn"
+            botãoenv.id = "botãoenv";
+            botãoenv.innerHTML = "Mudar";
+            botãoenv.style = "width: 150px;display:block; margin-top:25px;";
+            document.body.appendChild(botãoenv);
+            botãoenv.onclick = function () {
+                carnemed = document.getElementById("carnemed").value;
+                lingmed = document.getElementById("lingmed").value;
+                pdalhomed = document.getElementById("pdalhomed").value;
+                document.getElementById("resultado").innerHTML = "";
+                document.getElementById("resultado2").innerHTML = "";
+                document.getElementById("carnemed").remove();
+                document.getElementById("lingmed").remove();
+                document.getElementById("pdalhomed").remove();
+                document.getElementById("botãolimpar").remove();
+                document.getElementById("botãomed").remove();
+                document.getElementById("botãoenv").remove();
+
+            }
+        }
+    }
+</script>
+
+</html>

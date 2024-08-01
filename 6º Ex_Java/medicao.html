@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medição de Produtos</title>
+    <style>
+        * {
+            color: black;
+        }
+
+        body {
+            font: 16px/26px 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+
+
+        .wave-group {
+            position: relative;
+        }
+
+        .wave-group .input {
+            font-size: 16px;
+            padding: 10px 10px 10px 5px;
+            display: block;
+            width: 270px;
+            border: none;
+            border-bottom: 1px solid black;
+            background: transparent;
+        }
+
+        .wave-group .input:focus {
+            outline: none;
+        }
+
+        .wave-group .label {
+            color: black;
+            font-size: 18px;
+            font-weight: normal;
+            position: absolute;
+            pointer-events: none;
+            left: 5px;
+            top: 10px;
+            display: flex;
+        }
+
+        .wave-group .label-char {
+            transition: 0.2s ease all;
+            transition-delay: calc(var(--index) * .05s);
+        }
+
+        .wave-group .input:focus~label .label-char,
+        .wave-group .input:valid~label .label-char {
+            transform: translateY(-20px);
+            font-size: 14px;
+            color: #5264AE;
+        }
+
+        .wave-group .bar {
+            position: relative;
+            display: block;
+            width: 285px;
+        }
+
+        .wave-group .bar:before,
+        .wave-group .bar:after {
+            content: '';
+            height: 2px;
+            width: 0;
+            bottom: 1.1px;
+            position: absolute;
+            background: #5264AE;
+            transition: 0.2s ease all;
+            -moz-transition: 0.2s ease all;
+            -webkit-transition: 0.2s ease all;
+        }
+
+        .wave-group .bar:before {
+            left: 50%;
+        }
+
+        .wave-group .bar:after {
+            right: 50%;
+        }
+
+        .wave-group .input:focus~.bar:before,
+        .wave-group .input:focus~.bar:after {
+            width: 50%;
+        }
+
+        .btn {
+            color: black;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: 2px solid blue;
+            padding: 10px 20px;
+            font-size: 17px;
+            font-weight: bold;
+            background: transparent;
+            position: relative;
+            transition: all 1s;
+            overflow: hidden;
+        }
+
+        .btn:hover {
+            color: white;
+            cursor: pointer;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            height: 100%;
+            width: 0%;
+            top: 0;
+            left: -40px;
+            transform: skewX(45deg);
+            background-color: blue;
+            z-index: -1;
+            transition: all 1s;
+        }
+
+        .btn:hover::before {
+            width: 160%;
+        }
+
+        select {
+
+            /* styling */
+            background-color: white;
+            border: thin solid blue;
+            border-radius: 4px;
+            display: inline-block;
+            font: inherit;
+            line-height: 1.5em;
+            padding: 0.5em 3.5em 0.5em 1em;
+
+            /* reset */
+
+            margin: 0;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+
+        /* arrows */
+        select:hover {
+            cursor: pointer;
+        }
+
+        select.classic {
+            background-image:
+                linear-gradient(45deg, transparent 50%, blue 50%),
+                linear-gradient(135deg, blue 50%, transparent 50%),
+                linear-gradient(to right, skyblue, skyblue);
+            background-position:
+                calc(100% - 20px) calc(1em + 2px),
+                calc(100% - 15px) calc(1em + 2px),
+                100% 0;
+            background-size:
+                5px 5px,
+                5px 5px,
+                2.5em 2.5em;
+            background-repeat: no-repeat;
+        }
+
+        select.classic:focus {
+            background-image:
+                linear-gradient(45deg, white 50%, transparent 50%),
+                linear-gradient(135deg, transparent 50%, white 50%),
+                linear-gradient(to right, gray, gray);
+            background-position:
+                calc(100% - 15px) 1em,
+                calc(100% - 20px) 1em,
+                100% 0;
+            background-size:
+                5px 5px,
+                5px 5px,
+                2.5em 2.5em;
+            background-repeat: no-repeat;
+            border-color: grey;
+            outline: 0;
+        }
+
+
+
+
+        select.round {
+            background-image:
+                linear-gradient(45deg, transparent 50%, gray 50%),
+                linear-gradient(135deg, gray 50%, transparent 50%),
+                radial-gradient(#ddd 70%, transparent 72%);
+            background-position:
+                calc(100% - 20px) calc(1em + 2px),
+                calc(100% - 15px) calc(1em + 2px),
+                calc(100% - .5em) .5em;
+            background-size:
+                5px 5px,
+                5px 5px,
+                1.5em 1.5em;
+            background-repeat: no-repeat;
+        }
+
+        select.round:focus {
+            background-image:
+                linear-gradient(45deg, white 50%, transparent 50%),
+                linear-gradient(135deg, transparent 50%, white 50%),
+                radial-gradient(gray 70%, transparent 72%);
+            background-position:
+                calc(100% - 15px) 1em,
+                calc(100% - 20px) 1em,
+                calc(100% - .5em) .5em;
+            background-size:
+                5px 5px,
+                5px 5px,
+                1.5em 1.5em;
+            background-repeat: no-repeat;
+            border-color: green;
+            outline: 0;
+        }
+
+
+
+
+
+        select.minimal {
+            background-image:
+                linear-gradient(45deg, transparent 50%, gray 50%),
+                linear-gradient(135deg, gray 50%, transparent 50%),
+                linear-gradient(to right, #ccc, #ccc);
+            background-position:
+                calc(100% - 20px) calc(1em + 2px),
+                calc(100% - 15px) calc(1em + 2px),
+                calc(100% - 2.5em) 0.5em;
+            background-size:
+                5px 5px,
+                5px 5px,
+                1px 1.5em;
+            background-repeat: no-repeat;
+        }
+
+        select.minimal:focus {
+            background-image:
+                linear-gradient(45deg, green 50%, transparent 50%),
+                linear-gradient(135deg, transparent 50%, green 50%),
+                linear-gradient(to right, #ccc, #ccc);
+            background-position:
+                calc(100% - 15px) 1em,
+                calc(100% - 20px) 1em,
+                calc(100% - 2.5em) 0.5em;
+            background-size:
+                5px 5px,
+                5px 5px,
+                1px 1.5em;
+            background-repeat: no-repeat;
+            border-color: green;
+            outline: 0;
+        }
+
+
+        select:-moz-focusring {
+            color: transparent;
+            text-shadow: 0 0 0 #000;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="maximo" style="align-items: center;align-self: center;align-content: center;text-align: center;">
+        <h1>Medição de Produtos</h1>
+        <div class="wave-group" style="margin-left: 805px; align-self: center;align-items: center;">
+            <input required="" type="number" class="input" name="vtotal" id="vtotal">
+            <span class="bar"></span>
+            <label class="label">
+                <span class="label-char" style="--index: 0">Valor</span>
+                <span class="label-char" style="--index: 1">&nbsp;total&nbsp;dos produtos&nbsp;</span>
+            </label>
+        </div><br>
+        <div class="wave-group" style="margin-left: 805px; align-self: center;align-items: center;">
+            <input required="" type="number" class="input" name="quantidade" id="quantidade">
+            <span class="bar"></span>
+            <label class="label">
+                <span class="label-char" style="--index: 0">Quantidade</span>
+                <span class="label-char" style="--index: 1">&nbsp;total&nbsp;dos produtos&nbsp;</span>
+            </label>
+        </div><br>
+        <select id="lucro">
+            <option id="">Selecione uma opção de lucro</option>
+            <option id="0.2">20%</option>
+            <option id="0.5">50%</option>
+            <option id="0.75">75%</option>
+            <option id="1">100%</option>
+            <option id="1.5">150%</option>
+            <option id="2">200%</option>
+        </select>
+        <br><br>
+        <button class="btn" onclick="calc()">Calcular</button>
+        <br>
+        <h3>
+            <span id="resultado" style="color: red; "></span>
+        </h3>
+        <h3><br>
+            <span id="resultado2" style="color: red;margin-top:-200px;"></span>
+        </h3>
+    </div>
+</body>
+<script>
+    function calc() {
+        var vtotal = document.getElementById("vtotal").value;
+        var quantidade = document.getElementById("quantidade").value;
+        var lucro = parseFloat(document.getElementById("lucro").value);
+        if (vtotal == 0 || quantidade == 0 || isNaN(lucro)) {
+            window.confirm("Preencha todos os campos")
+            window.location.reload()
+            return
+        }
+        var vunitario = (vtotal / quantidade)
+        var vfinal = vunitario + ((lucro / 100) * vunitario)
+        var resultado = "O valor final dos produtos é: R$ " + vfinal;
+        var resultado2 = "E o valor unitário sem lucro é: R$ " + vtotal / quantidade;
+        document.getElementById("resultado").innerHTML = resultado;
+        document.getElementById("resultado2").innerHTML = resultado2;
+        var botãolimpar = document.createElement("button");
+        botãolimpar.className = "btn";
+        botãolimpar.id = "botãolimpar";
+        botãolimpar.style = "margin-top: 20px; margin-left: 800px;align-self: center;align-items: center;";
+        botãolimpar.innerHTML = "Limpar";
+        document.body.appendChild(botãolimpar);
+        botãolimpar.onclick = function () {
+            window.location.reload();
+        }
+        var botaoporcento = document.createElement("button");
+        botaoporcento.className = "btn";
+        botaoporcento.id = "botaoporcento";
+        botaoporcento.style = "margin-top: 10px; margin-left: 50px; width:10%;";
+        botaoporcento.innerHTML = "Ver todos os lucros";
+        document.body.appendChild(botaoporcento);
+        botaoporcento.onclick = function () {
+            var textoporcento = document.createElement("text");
+            textoporcento.id = "textoporcento";
+            lucro20 = (vunitario + ((20 / 100) * vunitario));
+            lucro20 = lucro20.toString().replace(".", ",");
+            lucro50 = (vunitario + ((50 / 100) * vunitario));
+            lucro50 = lucro50.toString().replace(".", ",");
+            lucro75 = (vunitario + ((75 / 100) * vunitario));
+            lucro75 = lucro75.toString().replace(".", ",");
+            lucro100 = (vunitario + ((100 / 100) * vunitario));
+            lucro100 = lucro100.toString().replace(".", ",");
+            lucro150 = (vunitario + ((150 / 100) * vunitario));
+            lucro150 = lucro150.toString().replace(".", ",");
+            lucro200 = (vunitario + ((200 / 100) * vunitario));
+            lucro200 = lucro200.toString().replace(".", ",");
+            textoporcento.style = "font: 16px/26px bold 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; color: blue;";
+            textoporcento.innerHTML = "<center>" + "<br>" + "Com 20% de lucro, o valor final dos produtos é: R$" + lucro20 + "<br>"
+                + "Com 50% de lucro, o valor final dos produtos é: R$" + lucro50 + "<br>"
+                + "Com 75% de lucro, o valor final dos produtos é: R$" + lucro75 + "<br>"
+                + "Com 100% de lucro, o valor final dos produtos é: R$" + lucro100 + "<br>"
+                + "Com 150% de lucro, o valor final dos produtos é: R$" + lucro150 + "<br>"
+                + "Com 200% de lucro, o valor final dos produtos é: R$" + lucro200 + "<br>" + "</center>";
+            document.body.appendChild(textoporcento);
+        }
+    }
+</script>
+
+</html>

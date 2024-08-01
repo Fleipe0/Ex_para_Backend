@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ordenação de dados</title>
+    <style>
+        h1{
+            font: bold 45px Arial,Heveltica,sans-serif;
+        }
+        *{
+            font: Arial
+        }
+    </style>
+</head>
+<body>
+    <h1>Ordenação de dados</h1>
+    <input type="number" id="n1" placeholder="Digite o número 1"><br><br>
+    <input type="number" id="n2" placeholder="Digite o número 2"><br><br>
+    <input type="number" id="n3" placeholder="Digite o número 3"><br><br>
+    <button id="btn"  onclick="ordenar()">Ordenar</button>
+    <br>
+    <span id="resultado"></span>
+</body>
+<script>
+    function ordenar(){
+        var n1 = 0;
+        var n2 = 0;
+        var n3 = 0;
+        n1 = parseInt(document.getElementById("n1").value);
+        n2 = parseInt(document.getElementById("n2").value);
+        n3 = parseInt(document.getElementById("n3").value);
+        // Encontrar o menor, o do meio e o maior valor
+        var menor = Math.min(n1, n2, n3);
+        var maior = Math.max(n1, n2, n3);
+        // O valor do meio é a soma total menos o menor e o maior
+        var meio = (n1 + n2 + n3) - (menor + maior);
+        // Retornar os números ordenados
+        document.getElementById("resultado").innerHTML = "A ordem é: <br> 1º "+ maior  +"<br> 2º "+ meio +"<br> 3º "+ menor;
+    }
+</script>
+</html>
