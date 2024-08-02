@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulario</title>
     <style>
+        
         * {
         color: white; 
         }
@@ -19,6 +20,7 @@
             background-image: linear-gradient(0deg, transparent 24%, var(--color) 25%, var(--color) 26%, transparent 27%, transparent 74%, var(--color) 75%, var(--color) 76%, transparent 77%, transparent),
                 linear-gradient(90deg, transparent 24%, var(--color) 25%, var(--color) 26%, transparent 27%, transparent 74%, var(--color) 75%, var(--color) 76%, transparent 77%, transparent);
             background-size: 55px 55px;
+            overflow-x: hidden;
         }
         
 
@@ -179,6 +181,27 @@
             <span class="label-char" style="--index: 0">Tele</span>
             <span class="label-char" style="--index: 1">fo</span>
             <span class="label-char" style="--index: 2">ne</span>
+        </label>
+    </div><br>
+    <div class="wave-group">
+        <input required="" type="date" class="input" name="data" id="data" placeholder="Data de Nascimento">
+        <span class="bar"></span>
+        <label class="label">
+
+        </label>
+    </div><br>
+        <select required="" name="genero" id="genero" style="color: black;">
+            <option value="" selected disabled hidden>Selecione o gênero</option>
+            <option value="Masculino" style="color: black;">Masculino</option>
+            <option value="Feminino" style="color: black;">Feminino</option>
+            <option value="Outro" style="color: black;">Outro</option>
+        </select>
+    </div><br>
+    <div class="wave-group">
+        <input required="" type="text" class="input" name="nacio" id="nacio">
+        <span class="bar"></span>
+        <label class="label">
+            <span class="label-char" style="--index: 0">Nacionalidade</span>
         </label>
     </div><br>
     <button class="btn" onclick="logar()">Logar</button>
