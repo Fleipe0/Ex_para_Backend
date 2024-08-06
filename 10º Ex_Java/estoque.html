@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contagem</title>
+    <style>
+        .btn {
+            color: black;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: 2px solid blue;
+            padding: 10px 20px;
+            font-size: 17px;
+            font-weight: bold;
+            background: transparent;
+            position: relative;
+            transition: all 1s;
+            overflow: hidden;
+        }
+
+        .btn:hover {
+            color: white;
+            cursor: pointer;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            height: 100%;
+            width: 0%;
+            top: 0;
+            left: -40px;
+            transform: skewX(45deg);
+            background-color: blue;
+            z-index: -1;
+            transition: all 1s;
+        }
+
+        .btn:hover::before {
+            width: 160%;
+        }
+
+        select {
+
+            /* styling */
+            background-color: white;
+            border: thin solid blue;
+            border-radius: 4px;
+            display: inline-block;
+            font: inherit;
+            line-height: 1.5em;
+            padding: 0.5em 3.5em 0.5em 1em;
+
+            /* reset */
+
+            margin: 0;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+
+        /* arrows */
+        select:hover {
+            cursor: pointer;
+        }
+
+        select.classic {
+            background-image:
+                linear-gradient(45deg, transparent 50%, blue 50%),
+                linear-gradient(135deg, blue 50%, transparent 50%),
+                linear-gradient(to right, skyblue, skyblue);
+            background-position:
+                calc(100% - 20px) calc(1em + 2px),
+                calc(100% - 15px) calc(1em + 2px),
+                100% 0;
+            background-size:
+                5px 5px,
+                5px 5px,
+                2.5em 2.5em;
+            background-repeat: no-repeat;
+        }
+
+        select.classic:focus {
+            background-image:
+                linear-gradient(45deg, white 50%, transparent 50%),
+                linear-gradient(135deg, transparent 50%, white 50%),
+                linear-gradient(to right, gray, gray);
+            background-position:
+                calc(100% - 15px) 1em,
+                calc(100% - 20px) 1em,
+                100% 0;
+            background-size:
+                5px 5px,
+                5px 5px,
+                2.5em 2.5em;
+            background-repeat: no-repeat;
+            border-color: grey;
+            outline: 0;
+        }
+
+
+
+
+        select.round {
+            background-image:
+                linear-gradient(45deg, transparent 50%, gray 50%),
+                linear-gradient(135deg, gray 50%, transparent 50%),
+                radial-gradient(#ddd 70%, transparent 72%);
+            background-position:
+                calc(100% - 20px) calc(1em + 2px),
+                calc(100% - 15px) calc(1em + 2px),
+                calc(100% - .5em) .5em;
+            background-size:
+                5px 5px,
+                5px 5px,
+                1.5em 1.5em;
+            background-repeat: no-repeat;
+        }
+
+        select.round:focus {
+            background-image:
+                linear-gradient(45deg, white 50%, transparent 50%),
+                linear-gradient(135deg, transparent 50%, white 50%),
+                radial-gradient(gray 70%, transparent 72%);
+            background-position:
+                calc(100% - 15px) 1em,
+                calc(100% - 20px) 1em,
+                calc(100% - .5em) .5em;
+            background-size:
+                5px 5px,
+                5px 5px,
+                1.5em 1.5em;
+            background-repeat: no-repeat;
+            border-color: green;
+            outline: 0;
+        }
+
+
+
+
+
+        select.minimal {
+            background-image:
+                linear-gradient(45deg, transparent 50%, gray 50%),
+                linear-gradient(135deg, gray 50%, transparent 50%),
+                linear-gradient(to right, #ccc, #ccc);
+            background-position:
+                calc(100% - 20px) calc(1em + 2px),
+                calc(100% - 15px) calc(1em + 2px),
+                calc(100% - 2.5em) 0.5em;
+            background-size:
+                5px 5px,
+                5px 5px,
+                1px 1.5em;
+            background-repeat: no-repeat;
+        }
+
+        select.minimal:focus {
+            background-image:
+                linear-gradient(45deg, green 50%, transparent 50%),
+                linear-gradient(135deg, transparent 50%, green 50%),
+                linear-gradient(to right, #ccc, #ccc);
+            background-position:
+                calc(100% - 15px) 1em,
+                calc(100% - 20px) 1em,
+                calc(100% - 2.5em) 0.5em;
+            background-size:
+                5px 5px,
+                5px 5px,
+                1px 1.5em;
+            background-repeat: no-repeat;
+            border-color: green;
+            outline: 0;
+        }
+
+
+        select:-moz-focusring {
+            color: transparent;
+            text-shadow: 0 0 0 #000;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Selecione o produto</h1>
+    <div class="wave-group" style=" align-self: center;align-items: center;">
+        <select id="produtos">
+            <option id="">Selecione uma opção de produto</option>
+            <option id="camiseta">Camiseta</option>
+            <option id="botton">Botton</option>
+            <option id="copo">Copo Termíco</option>
+            <option id="moletom">Moletom</option>
+        </select>
+        <br><br>
+        <button class="btn" onclick="vender()">Vender</button>
+        <button class="btn" onclick="armazenar()">Armazenar</button>
+        <button class="btn" onclick="quant()">Definir Quantidade</button>
+    </div><br>
+    <span id="resposta" style="font:30px bold"></span><br>
+    <span id="resposta2" style="font: 30px bold"></span>
+</body>
+<script>
+    var quantcamiseta = 10
+    var quantbotton = 10
+    var quantcopo = 10
+    var quantmoletom = 10
+    function armazenar() {
+        var produtos = document.getElementById("produtos").value;
+        if (produtos == "") {
+            alert("Selecione um produto")
+        }
+        if (produtos == "Camiseta") {
+            quantcamiseta = quantcamiseta + 1
+            document.getElementById("resposta").innerHTML = "Camiseta armazenada"
+            document.getElementById("resposta2").innerHTML = "Quant. Atual: " + quantcamiseta
+
+        }
+        else if (produtos == "Botton") {
+            quantbotton = quantbotton + 1
+            document.getElementById("resposta").innerHTML = "Botton armazenado"
+            document.getElementById("resposta2").innerHTML = "Quant. Atual: " + quantbotton
+        }
+        else if (produtos == "Copo Termíco") {
+            quantcopo = quantcopo + 1
+            document.getElementById("resposta").innerHTML = "Copo armazenado"
+            document.getElementById("resposta2").innerHTML = "Quant. Atual: " + quantcopo
+        }
+        else if (produtos == "Moletom") {
+            quantmoletom = quantmoletom + 1
+            document.getElementById("resposta").innerHTML = "Moletom armazenado"
+            document.getElementById("resposta2").innerHTML = "Quant. Atual: " + quantmoletom
+        }
+    }
+    function vender() {
+        var produtos = document.getElementById("produtos").value;
+        if (produtos == "") {
+            alert("Selecione um produto")
+        }
+        if (produtos == "Camiseta") {
+            quantcamiseta = quantcamiseta - 1
+            document.getElementById("resposta").innerHTML = "Camiseta vendida"
+            document.getElementById("resposta2").innerHTML = "Quant. Atual: " + quantcamiseta
+        }
+        else if (produtos == "Botton") {
+            quantbotton = quantbotton - 1
+            document.getElementById("resposta").innerHTML = "Botton vendido"
+            document.getElementById("resposta2").innerHTML = "Quant. Atual: " + quantbotton
+        }
+        else if (produtos == "Copo Termíco") {
+            quantcopo = quantcopo - 1
+            document.getElementById("resposta").innerHTML = "Copo vendido"
+            document.getElementById("resposta2").innerHTML = "Quant. Atual: " + quantcopo
+        }
+        else if (produtos == "Moletom") {
+            quantmoletom = quantmoletom - 1
+            document.getElementById("resposta").innerHTML = "Moletom vendido"
+            document.getElementById("resposta2").innerHTML = "Quant. Atual: " + quantmoletom
+        }
+    }
+    function quant() {
+        quantidade = document.createElement("input");
+        quantidade.type = "number";
+        quantidade.id = 'quantidade';
+        quantidade.style = "width: 410px; height: 30px; margin-left: 5px; margin-top: 10px;color:red;display:block";
+        quantidade.placeholder = "Insira a quantidade de produtos";
+        document.body.appendChild(quantidade);
+        var botaoquant = document.createElement("button");
+        botaoquant.className = "btn";
+        botaoquant.id = "botaoquant";
+        botaoquant.style = "margin-top: 20px;align-self: center;align-items: center;";
+        botaoquant.innerHTML = "Enviar";
+        document.body.appendChild(botaoquant);
+        botaoquant.onclick = function () {
+            var produtos = document.getElementById("produtos").value;
+            if (produtos == "Camiseta") {
+                quantcamiseta = parseInt(document.getElementById("quantidade").value);
+                alert(quantcamiseta)
+                if (quantcamiseta == ""){
+                    alert("Insira uma quantidade!")
+                }
+                document.getElementById("resposta").innerHTML = "Quant. Atual: " + quantcamiseta
+                setTimeout(function () {
+                    document.getElementById("resposta").innerHTML = "";
+                    document.getElementById("resposta2").innerHTML = "";
+                    document.getElementById("quantidade").remove();
+                    document.getElementById("botaoquant").remove();
+                }, 5000)
+            }
+            else if (produtos == "Botton") {
+                quantbotton = parseInt(document.getElementById("quantidade").value);
+                if (quantbotton == ""){
+                    alert("Insira uma quantidade!")
+                }
+                document.getElementById("resposta").innerHTML = "Quant. Atual: " + quantbotton
+                setTimeout(function () {
+                    document.getElementById("resposta").innerHTML = "";
+                    document.getElementById("resposta2").innerHTML = "";
+                    document.getElementById("quantidade").remove();
+                    document.getElementById("botaoquant").remove();
+                }, 5000)
+            }
+            else if (produtos == "Copo Termíco") {
+                quantcopo = document.getElementById("quantidade").value;
+                if (quantcopo == ""){
+                    alert("Insira uma quantidade!")
+                }
+                document.getElementById("resposta").innerHTML = "Quant. Atual: " + quantcopo
+                setTimeout(function () {
+                    document.getElementById("resposta").innerHTML = "";
+                    document.getElementById("resposta2").innerHTML = "";
+                    document.getElementById("quantidade").remove();
+                    document.getElementById("botaoquant").remove();
+                }, 5000)
+            }
+            else if (produtos == "Moletom") {
+                quantmoletom = document.getElementById("quantidade").value;
+                if (quantmoletom == ""){
+                    alert("Insira uma quantidade!")
+                }
+                document.getElementById("resposta").innerHTML = "Quant. Atual: " + quantmoletom
+                setTimeout(function () {
+                    document.getElementById("resposta").innerHTML = "";
+                    document.getElementById("resposta2").innerHTML = "";
+                    document.getElementById("quantidade").remove();
+                    document.getElementById("botaoquant").remove();
+                }, 5000)
+            }
+        }
+    }
+</script>
+
+</html>
