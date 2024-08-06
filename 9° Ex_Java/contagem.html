@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contagem</title>
+</head>
+
+<body>
+    <h1>Contador</h1>
+    <div class="wave-group" style=" align-self: center;align-items: center;">
+        <input required="" type="number" name="idade" id="idade" style=" align-self: center;align-items: center;"
+            placeholder="Digite sua idade">
+        <button class="btn" onclick="computar()">Computar</button>
+    </div><br>
+    <h2>Maiores de 18:</h2>
+    <input type="text" id="maior" readonly value="0" style="font: 60px Arial;color: red; border: 0px;">
+    <h2>Menores de 18:</h2>
+    <input type="text" id="menor" readonly value="0" style="font: 60px Arial;color: blue; border: 0px;">
+</body>
+<script>
+    function computar() {
+        var idade = parseInt(document.getElementById("idade").value);
+        var maior = parseInt(document.getElementById("maior").value);
+        var menor = parseInt(document.getElementById("menor").value);
+        if (idade >= 18) {
+            maior = maior + 1
+            document.getElementById("maior").value = maior
+        }
+        else {
+            menor = menor + 1
+            document.getElementById("menor").value = menor
+
+        }
+    }
+</script>
+
+</html>
