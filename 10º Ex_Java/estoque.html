@@ -198,38 +198,49 @@
         <button class="btn" onclick="vender()">Vender</button>
         <button class="btn" onclick="armazenar()">Armazenar</button>
         <button class="btn" onclick="quant()">Definir Quantidade</button>
+        <button class="btn" onclick="limpar()">Limpar</button>
     </div><br>
     <span id="resposta" style="font:30px bold"></span><br>
     <span id="resposta2" style="font: 30px bold"></span>
 </body>
 <script>
-    var quantcamiseta = 10
-    var quantbotton = 10
-    var quantcopo = 10
-    var quantmoletom = 10
+    var quantcamiseta = parseInt(localStorage.getItem("quantcamiseta"))
+    var quantbotton = parseInt(localStorage.getItem("quantbotton"))
+    var quantcopo = parseInt(localStorage.getItem("quantcopo"))
+    var quantmoletom = parseInt(localStorage.getItem("quantmoletom"))
     function armazenar() {
         var produtos = document.getElementById("produtos").value;
         if (produtos == "") {
             alert("Selecione um produto")
         }
+        if (isNaN(quantcamiseta) || isNaN(quantbotton) || isNaN(quantcopo) || isNaN(quantmoletom)) {
+            quantcamiseta = 0
+            quantbotton = 0
+            quantcopo = 0
+            quantmoletom = 0
+        }
         if (produtos == "Camiseta") {
             quantcamiseta = quantcamiseta + 1
+            localStorage.setItem("quantcamiseta", quantcamiseta)
             document.getElementById("resposta").innerHTML = "Camiseta armazenada"
             document.getElementById("resposta2").innerHTML = "Quant. Atual: " + quantcamiseta
 
         }
         else if (produtos == "Botton") {
             quantbotton = quantbotton + 1
+            localStorage.setItem("quantbotton", quantbotton)
             document.getElementById("resposta").innerHTML = "Botton armazenado"
             document.getElementById("resposta2").innerHTML = "Quant. Atual: " + quantbotton
         }
         else if (produtos == "Copo Termíco") {
             quantcopo = quantcopo + 1
+            localStorage.setItem("quantcopo", quantcopo)
             document.getElementById("resposta").innerHTML = "Copo armazenado"
             document.getElementById("resposta2").innerHTML = "Quant. Atual: " + quantcopo
         }
         else if (produtos == "Moletom") {
             quantmoletom = quantmoletom + 1
+            localStorage.setItem("quantmoletom", quantmoletom)
             document.getElementById("resposta").innerHTML = "Moletom armazenado"
             document.getElementById("resposta2").innerHTML = "Quant. Atual: " + quantmoletom
         }
@@ -239,23 +250,33 @@
         if (produtos == "") {
             alert("Selecione um produto")
         }
+        if (isNaN(quantcamiseta) || isNaN(quantbotton) || isNaN(quantcopo) || isNaN(quantmoletom)) {
+            quantcamiseta = 0
+            quantbotton = 0
+            quantcopo = 0
+            quantmoletom = 0
+        }
         if (produtos == "Camiseta") {
             quantcamiseta = quantcamiseta - 1
+            localStorage.setItem("quantcamiseta", quantcamiseta)
             document.getElementById("resposta").innerHTML = "Camiseta vendida"
             document.getElementById("resposta2").innerHTML = "Quant. Atual: " + quantcamiseta
         }
         else if (produtos == "Botton") {
             quantbotton = quantbotton - 1
+            localStorage.setItem("quantbotton", quantbotton)
             document.getElementById("resposta").innerHTML = "Botton vendido"
             document.getElementById("resposta2").innerHTML = "Quant. Atual: " + quantbotton
         }
         else if (produtos == "Copo Termíco") {
             quantcopo = quantcopo - 1
+            localStorage.setItem("quantcopo", quantcopo)
             document.getElementById("resposta").innerHTML = "Copo vendido"
             document.getElementById("resposta2").innerHTML = "Quant. Atual: " + quantcopo
         }
         else if (produtos == "Moletom") {
             quantmoletom = quantmoletom - 1
+            localStorage.setItem("quantmoletom", quantmoletom)
             document.getElementById("resposta").innerHTML = "Moletom vendido"
             document.getElementById("resposta2").innerHTML = "Quant. Atual: " + quantmoletom
         }
@@ -264,7 +285,7 @@
         quantidade = document.createElement("input");
         quantidade.type = "number";
         quantidade.id = 'quantidade';
-        quantidade.style = "width: 410px; height: 30px; margin-left: 5px; margin-top: 10px;color:red;display:block";
+        quantidade.style = "width: 410px; height: 30px; margin-top: 10px;color:red;display:block";
         quantidade.placeholder = "Insira a quantidade de produtos";
         document.body.appendChild(quantidade);
         var botaoquant = document.createElement("button");
@@ -277,10 +298,10 @@
             var produtos = document.getElementById("produtos").value;
             if (produtos == "Camiseta") {
                 quantcamiseta = parseInt(document.getElementById("quantidade").value);
-                alert(quantcamiseta)
-                if (quantcamiseta == ""){
+                if (quantcamiseta == "") {
                     alert("Insira uma quantidade!")
                 }
+                localStorage.setItem("quantcamiseta", quantcamiseta)
                 document.getElementById("resposta").innerHTML = "Quant. Atual: " + quantcamiseta
                 setTimeout(function () {
                     document.getElementById("resposta").innerHTML = "";
@@ -291,10 +312,11 @@
             }
             else if (produtos == "Botton") {
                 quantbotton = parseInt(document.getElementById("quantidade").value);
-                if (quantbotton == ""){
+                if (quantbotton == "") {
                     alert("Insira uma quantidade!")
                 }
                 document.getElementById("resposta").innerHTML = "Quant. Atual: " + quantbotton
+                localStorage.setItem("quantbotton", quantbotton)
                 setTimeout(function () {
                     document.getElementById("resposta").innerHTML = "";
                     document.getElementById("resposta2").innerHTML = "";
@@ -304,9 +326,10 @@
             }
             else if (produtos == "Copo Termíco") {
                 quantcopo = document.getElementById("quantidade").value;
-                if (quantcopo == ""){
+                if (quantcopo == "") {
                     alert("Insira uma quantidade!")
                 }
+                localStorage.setItem("quantcopo", quantcopo)
                 document.getElementById("resposta").innerHTML = "Quant. Atual: " + quantcopo
                 setTimeout(function () {
                     document.getElementById("resposta").innerHTML = "";
@@ -317,9 +340,10 @@
             }
             else if (produtos == "Moletom") {
                 quantmoletom = document.getElementById("quantidade").value;
-                if (quantmoletom == ""){
+                if (quantmoletom == "") {
                     alert("Insira uma quantidade!")
                 }
+                localStorage.setItem("quantmoletom", quantmoletom)
                 document.getElementById("resposta").innerHTML = "Quant. Atual: " + quantmoletom
                 setTimeout(function () {
                     document.getElementById("resposta").innerHTML = "";
@@ -329,6 +353,17 @@
                 }, 5000)
             }
         }
+    }
+    function limpar() {
+        document.getElementById("resposta").innerHTML = "";
+        document.getElementById("resposta2").innerHTML = "";
+        localStorage.clear();
+        quantcamiseta = 0
+        quantbotton = 0
+        quantcopo = 0
+        quantmoletom = 0
+        document.getElementById("quantidade").remove();
+        document.getElementById("botaoquant").remove();
     }
 </script>
 
